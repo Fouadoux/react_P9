@@ -2,14 +2,21 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import PaymentForm from '../components/PaymentForm'
 import '../styles/CartPage.css'
+import type {CartItem} from "../types/plant.ts";
+import type {TransactionResult} from "../types/payment.ts";
 
-function CartPage({ cart, clearCart, updateQuantity }) {
+type CartPageProps = {
+	cart: CartItem[]
+	clearCart: () => void
+	updateQuantity: (name: string, quantity: number) => void
+}
+function CartPage({ cart, clearCart, updateQuantity }:CartPageProps) {
 	const total = cart.reduce(
 		(acc, plantType) => acc + plantType.amount * plantType.price,
 		0
 	)
 	const [showPaymentForm, setShowPaymentForm] = useState(false)
-	const [paymentResult, setPaymentResult] = useState(null)
+	const [paymentResult, setPaymentResult] = useState<TransactionResult|null>(null)
 	
 	useEffect(() => {
 		document.title = `LMJ: ${total}€ d'achats`
@@ -94,7 +101,7 @@ function CartPage({ cart, clearCart, updateQuantity }) {
 			{showPaymentForm && (
 				<PaymentForm
 					amount={total}
-									onSuccess={(result) => {
+									onSuccess={(result:TransactionResult) => {
 					setPaymentResult(result)
 					setShowPaymentForm(false)
 					clearCart() // Vider le panier après paiement réussi

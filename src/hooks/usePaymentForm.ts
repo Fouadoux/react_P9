@@ -1,15 +1,17 @@
 import { useState } from "react";
+import type {PaymentErrors, PaymentMethod} from "../types/payment.ts";
 
 export const usePaymentForm = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<PaymentMethod>({
     cardNumber: "",
     expiryDate: "",
     cvv: "",
     cardholderName: "",
   });
-  const [errors, setErrors] = useState({});
 
-  const updateField = (name, value) => {
+  const [errors, setErrors] = useState<PaymentErrors>({});
+
+  const updateField = (name: keyof PaymentMethod, value: string) => {
     setFormData((prev) => ({
       ...prev,
       [name]: value,
@@ -24,17 +26,17 @@ export const usePaymentForm = () => {
     }
   };
 
-  const validateField = (name, value) => {
+  const validateField = (name:string, value:string) => {
     switch (name) {
       case "cardNumber":
-        const cleanCardNumber = value.replace(/\s/g, "");
+        { const cleanCardNumber = value.replace(/\s/g, "");
         if (!cleanCardNumber.match(/^\d{13,19}$/)) {
           return "Numéro de carte invalide";
         }
-        break;
+        break; }
 
       case "expiryDate":
-        if (!value.match(/^\d{2}\/\d{2}$/)) {
+        { if (!value.match(/^\d{2}\/\d{2}$/)) {
           return "Format de date invalide (MM/AA)";
         }
         // Validation de la date d'expiration
@@ -44,7 +46,7 @@ export const usePaymentForm = () => {
         if (expiryDate < currentDate) {
           return "Carte expirée";
         }
-        break;
+        break; }
 
       case "cvv":
         if (!value.match(/^\d{3,4}$/)) {
@@ -68,13 +70,14 @@ export const usePaymentForm = () => {
   };
 
   const validateForm = () => {
-    const newErrors = {};
+    const newErrors: PaymentErrors = {};
     let isValid = true;
 
-    Object.keys(formData).forEach((fieldName) => {
-      const error = validateField(fieldName, formData[fieldName]);
+    Object.keys(formData).forEach((fieldName:string) => {
+      const error = validateField(fieldName, formData[fieldName as keyof PaymentMethod]);
       if (error) {
-        newErrors[fieldName] = error;
+        const field = fieldName as keyof PaymentMethod
+        newErrors[field] = error;
         isValid = false;
       }
     });
@@ -83,7 +86,7 @@ export const usePaymentForm = () => {
     return isValid;
   };
 
-  const formatCardNumber = (value) => {
+  const formatCardNumber = (value:string) => {
     const v = value.replace(/\s+/g, "").replace(/[^0-9]/gi, "");
     const matches = v.match(/\d{4,16}/g);
     const match = (matches && matches[0]) || "";
@@ -98,7 +101,7 @@ export const usePaymentForm = () => {
     }
   };
 
-  const formatExpiryDate = (value) => {
+  const formatExpiryDate = (value:string) => {
     const v = value.replace(/\s+/g, "").replace(/[^0-9]/gi, "");
     if (v.length >= 2) {
       return v.substring(0, 2) + "/" + v.substring(2, 4);

@@ -1,8 +1,15 @@
 import { usePayment } from '../hooks/usePayment'
 import { usePaymentForm } from '../hooks/usePaymentForm'
 import '../styles/PaymentForm.css'
+import type {PaymentMethod, TransactionResult} from "../types/payment.ts";
+import * as React from "react";
 
-function PaymentForm({ amount, onSuccess, onCancel }) {
+type PaymentFormProps = {
+  amount: number
+  onSuccess: (result: TransactionResult) => void
+  onCancel: () => void
+}
+function PaymentForm({ amount, onSuccess, onCancel }:PaymentFormProps) {
   const { isProcessing, error, processPayment } = usePayment()
   const { 
     formData, 
@@ -10,16 +17,15 @@ function PaymentForm({ amount, onSuccess, onCancel }) {
     updateField, 
     validateForm, 
     formatCardNumber, 
-    formatExpiryDate,
-    resetForm 
+    formatExpiryDate
   } = usePaymentForm()
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e:React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
-    updateField(name, value)
+    updateField( name as keyof PaymentMethod, value)
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e:React.FormEvent) => {
     e.preventDefault()
 
     // Validation du formulaire
@@ -37,7 +43,7 @@ function PaymentForm({ amount, onSuccess, onCancel }) {
         cardholderName: formData.cardholderName
       }
 
-      const result = await processPayment(paymentData)
+      const result:TransactionResult = await processPayment(paymentData)
       onSuccess(result)
     } catch (err) {
       // L'erreur est déjà gérée par le hook usePayment
@@ -63,7 +69,7 @@ function PaymentForm({ amount, onSuccess, onCancel }) {
               value={formData.cardNumber}
               onChange={(e) => updateField('cardNumber', formatCardNumber(e.target.value))}
               placeholder="1234 5678 9012 3456"
-              maxLength="19"
+              maxLength={19}
               required
             />
             {errors.cardNumber && (
@@ -81,7 +87,7 @@ function PaymentForm({ amount, onSuccess, onCancel }) {
                 value={formData.expiryDate}
                 onChange={(e) => updateField('expiryDate', formatExpiryDate(e.target.value))}
                 placeholder="MM/AA"
-                maxLength="5"
+                maxLength={5}
                 required
               />
               {errors.expiryDate && (
@@ -98,7 +104,7 @@ function PaymentForm({ amount, onSuccess, onCancel }) {
                 value={formData.cvv}
                 onChange={handleInputChange}
                 placeholder="123"
-                maxLength="4"
+                maxLength={4}
                 required
               />
               {errors.cvv && (

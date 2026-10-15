@@ -1,11 +1,19 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import '../../styles/PlantItem.css'
+import * as React from "react";
+import type { Plant } from "../../types/plant";
 
-function PlantItem({ cover, name, price, id, onAddToCart }) {
+type PlantItemProps = {
+	cover:string, name:string, price:number, id:string, onAddToCart:()=>void,
+	// Received from ShoppingList but not used by this component
+	water:Plant["water"], light:Plant["light"],
+}
+
+function PlantItem({ cover, name, price, id, onAddToCart }:PlantItemProps) {
 	const [showAnimation, setShowAnimation] = useState(false)
 
-	const handleAddToCart = (e) => {
+	const handleAddToCart = (e:React.MouseEvent) => {
 		e.preventDefault()
 		onAddToCart()
 		setShowAnimation(true)

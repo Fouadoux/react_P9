@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
+import type {CartItem, Plant} from "../types/plant";
 
 export const useCart = () => {
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState<CartItem[]>([]);
 
   // Charger le panier depuis localStorage au montage
   useEffect(() => {
@@ -21,7 +22,7 @@ export const useCart = () => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
-  const addToCart = (plant) => {
+  const addToCart = (plant: Pick<Plant, 'name' | 'price'>) => {
     setCart((prevCart) => {
       const existingItem = prevCart.find((item) => item.name === plant.name);
 
@@ -37,11 +38,11 @@ export const useCart = () => {
     });
   };
 
-  const removeFromCart = (plantName) => {
+  const removeFromCart = (plantName:Plant["name"]) => {
     setCart((prevCart) => prevCart.filter((item) => item.name !== plantName));
   };
 
-  const updateQuantity = (plantName, newAmount) => {
+  const updateQuantity = (plantName:Plant["name"], newAmount:number) => {
     if (newAmount <= 0) {
       removeFromCart(plantName);
       return;
@@ -66,7 +67,7 @@ export const useCart = () => {
     return cart.reduce((count, item) => count + item.amount, 0);
   };
 
-  const getCartItem = (plantName) => {
+  const getCartItem = (plantName:Plant["name"]) => {
     return cart.find((item) => item.name === plantName);
   };
 

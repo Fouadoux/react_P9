@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { PaymentService } from "../services/paymentService";
+import type {PaymentData, TransactionResult} from "../types/payment.ts";
 
 export const usePayment = () => {
   const [isProcessing, setIsProcessing] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null >(null
+  );
   const [success, setSuccess] = useState(false);
-  const [transactionResult, setTransactionResult] = useState(null);
+  const [transactionResult, setTransactionResult] = useState<TransactionResult | null>();
 
-  const processPayment = async (paymentData) => {
+  const processPayment = async (paymentData:PaymentData) => {
     setIsProcessing(true);
     setError(null);
     setSuccess(false);
@@ -18,9 +20,9 @@ export const usePayment = () => {
       setSuccess(true);
       setTransactionResult(result);
       return result;
-    } catch (err) {
-      setError(err.message);
-      throw err;
+    } catch (error) {
+      setError((error as Error).message);
+      throw error;
     } finally {
       setIsProcessing(false);
     }
