@@ -11,9 +11,9 @@ export type Plant = {
     description:string,
 }
 
-export type CartItem = Pick<Plant, 'name' | 'price'> & {
+export type CartItem = Plant & {
     amount: number,
 }
 
 
-export type AddToCart = (plant: Pick<Plant, 'name' | 'price'>) => void
+export type AddToCart = (plant: Plant) => void

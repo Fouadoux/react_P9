@@ -20,8 +20,9 @@ export const usePayment = () => {
       setSuccess(true);
       setTransactionResult(result);
       return result;
-    } catch (error) {
-      setError((error as Error).message);
+    } catch (error: unknown) {
+      const message = error instanceof Error && error.message ? error.message : "erreur inconnue";
+      setError(message);
       throw error;
     } finally {
       setIsProcessing(false);

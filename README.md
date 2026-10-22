@@ -146,8 +146,8 @@ La migration a mis en évidence une incohérence du code d'origine : la fonction
 
 Seuls `name`, `price` et `amount` sont lus ensuite par le panier (`CartPage`, `Banner`). Les types reflètent donc la réalité :
 
-- `AddToCart` n'exige que `Pick<Plant, 'name' | 'price'>` (une `Plant` complète reste acceptée)
-- `CartItem` vaut `Pick<Plant, 'name' | 'price'> & { amount: number }`, et **non** `Plant & { amount: number }`
+- `AddToCart` reçoit une `Plant` complète
+- `CartItem` vaut `Plant & { amount: number }`
 
 **Conséquence :** les articles du panier (et ceux enregistrés dans le `localStorage`) peuvent contenir des champs supplémentaires selon leur provenance. Le typage ne les expose pas, et le code actuel n'en dépend pas.
 
