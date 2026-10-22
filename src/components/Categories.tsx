@@ -1,5 +1,5 @@
 import '../styles/Categories.css'
-import type {Plant} from "../types/plant.ts";
+import type {Plant} from "../types/plant";
 
 type CategoriesProps =  {
 	setActiveCategory: (activeCategory: Plant["category"] | '') => void

@@ -1,8 +1,8 @@
 import { useParams, Link, useNavigate } from 'react-router-dom'
-import { plantList } from '../datas/plantList.ts'
+import { plantList } from '../datas/plantList'
 import CareScale from '../components/ui/CareScale'
 import '../styles/PlantDetailPage.css'
-import type {AddToCart, CartItem, Plant} from "../types/plant.ts";
+import type {AddToCart, CartItem, Plant} from "../types/plant";
 
 type PlantDetailPageProps = { cart: CartItem[], addToCart: AddToCart }
 

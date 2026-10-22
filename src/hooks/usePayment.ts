@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { PaymentService } from "../services/paymentService";
-import type {PaymentData, TransactionResult} from "../types/payment.ts";
+import type {PaymentData, TransactionResult} from "../types/payment";
 
 export const usePayment = () => {
   const [isProcessing, setIsProcessing] = useState(false);

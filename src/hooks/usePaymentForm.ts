@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type {PaymentErrors, PaymentMethod} from "../types/payment.ts";
+import type {PaymentErrors, PaymentMethod} from "../types/payment";
 
 export const usePaymentForm = () => {
   const [formData, setFormData] = useState<PaymentMethod>({
