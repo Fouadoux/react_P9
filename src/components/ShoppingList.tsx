@@ -17,10 +17,6 @@ function ShoppingList({ addToCart }: ShoppingListProps) {
 		[]
 	)
 
-	const handleAddToCart = (name: Plant['name']  , price: Plant['price']) => {
-		addToCart({ name, price })
-	}
-
 	return (
 		<div className='lmj-shopping-list'>
 			<Categories
@@ -30,17 +26,17 @@ function ShoppingList({ addToCart }: ShoppingListProps) {
 			/>
 
 			<ul className='lmj-plant-list'>
-				{plantList.map(({ id, cover, name, water, light, price, category }) =>
-					!activeCategory || activeCategory === category ? (
-						<li key={id}>
+				{plantList.map((plant) =>
+					!activeCategory || activeCategory === plant.category ? (
+						<li key={plant.id}>
 							<PlantItem
-								id={id}
-								cover={cover}
-								name={name}
-								water={water}
-								light={light}
-								price={price}
-								onAddToCart={() => handleAddToCart(name, price)}
+								id={plant.id}
+								cover={plant.cover}
+								name={plant.name}
+								water={plant.water}
+								light={plant.light}
+								price={plant.price}
+								onAddToCart={() => addToCart(plant)}
 							/>
 						</li>
 					) : null

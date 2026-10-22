@@ -10,7 +10,7 @@ export const useCart = () => {
     if (savedCart) {
       try {
         setCart(JSON.parse(savedCart));
-      } catch (error) {
+      } catch (error: unknown) {
         console.error("Erreur lors du chargement du panier:", error);
         setCart([]);
       }
@@ -22,7 +22,7 @@ export const useCart = () => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
-  const addToCart = (plant: Pick<Plant, 'name' | 'price'>) => {
+  const addToCart = (plant: Plant) => {
     setCart((prevCart) => {
       const existingItem = prevCart.find((item) => item.name === plant.name);
 

@@ -45,7 +45,7 @@ function PaymentForm({ amount, onSuccess, onCancel }:PaymentFormProps) {
 
       const result:TransactionResult = await processPayment(paymentData)
       onSuccess(result)
-    } catch (err) {
+    } catch (err: unknown) {
       // L'erreur est déjà gérée par le hook usePayment
       console.error('Erreur de paiement:', err)
     }
