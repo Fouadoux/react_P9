@@ -1,6 +1,6 @@
 import Sun from '../../assets/sun.svg'
 import Water from '../../assets/water.svg'
-import type {Plant} from "../../types/plant.ts";
+import type {Plant} from "../../types/plant";
 
 type CareScaleProps = {
 	scaleValue:Plant["water"]

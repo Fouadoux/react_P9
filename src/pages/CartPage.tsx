@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import PaymentForm from '../components/PaymentForm'
 import '../styles/CartPage.css'
-import type {CartItem} from "../types/plant.ts";
-import type {TransactionResult} from "../types/payment.ts";
+import type {CartItem} from "../types/plant";
+import type {TransactionResult} from "../types/payment";
 
 type CartPageProps = {
 	cart: CartItem[]

@@ -1,7 +1,7 @@
 import { usePayment } from '../hooks/usePayment'
 import { usePaymentForm } from '../hooks/usePaymentForm'
 import '../styles/PaymentForm.css'
-import type {PaymentMethod, TransactionResult} from "../types/payment.ts";
+import type {PaymentMethod, TransactionResult} from "../types/payment";
 import * as React from "react";
 
 type PaymentFormProps = {

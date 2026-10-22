@@ -1,4 +1,4 @@
-import type {PaymentData, PaymentMethod} from "../types/payment.ts";
+import type {PaymentData, PaymentMethod} from "../types/payment";
 
 export class PaymentService {
   static async processPayment(paymentData:PaymentData) {

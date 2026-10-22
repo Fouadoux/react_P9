@@ -18,7 +18,7 @@ import philodendron from "../assets/philodendron.jpg";
 import aloeVera from "../assets/aloeVera.jpeg";
 import echeveria from "../assets/echeveria.jpeg";
 import crassula from "../assets/crassula.jpg";
-import type {Plant} from "../types/plant.ts";
+import type {Plant} from "../types/plant";
 
 export const plantList: Plant[] = [
   {

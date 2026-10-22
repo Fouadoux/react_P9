@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import { plantList } from '../datas/plantList.ts'
+import { plantList } from '../datas/plantList'
 import PlantItem from './ui/PlantItem'
 import Categories from './Categories'
 import '../styles/ShoppingList.css'
-import type {AddToCart, CartItem, Plant} from "../types/plant.ts";
+import type {AddToCart, CartItem, Plant} from "../types/plant";
 
 type ShoppingListProps = {
 	cart: CartItem[]
