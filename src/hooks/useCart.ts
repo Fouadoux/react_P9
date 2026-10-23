@@ -59,15 +59,15 @@ export const useCart = () => {
     setCart([]);
   };
 
-  const getTotal = () => {
+  const getTotal = (): number => {
     return cart.reduce((total, item) => total + item.price * item.amount, 0);
   };
 
-  const getItemCount = () => {
+  const getItemCount = (): number => {
     return cart.reduce((count, item) => count + item.amount, 0);
   };
 
-  const getCartItem = (plantName:Plant["name"]) => {
+  const getCartItem = (plantName:Plant["name"]): CartItem | undefined => {
     return cart.find((item) => item.name === plantName);
   };
 
