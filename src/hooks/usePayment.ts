@@ -7,9 +7,9 @@ export const usePayment = () => {
   const [error, setError] = useState<string | null >(null
   );
   const [success, setSuccess] = useState(false);
-  const [transactionResult, setTransactionResult] = useState<TransactionResult | null>();
+  const [transactionResult, setTransactionResult] = useState<TransactionResult | null>(null);
 
-  const processPayment = async (paymentData:PaymentData) => {
+  const processPayment = async (paymentData:PaymentData): Promise<TransactionResult> => {
     setIsProcessing(true);
     setError(null);
     setSuccess(false);

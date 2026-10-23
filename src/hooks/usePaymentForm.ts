@@ -26,7 +26,7 @@ export const usePaymentForm = () => {
     }
   };
 
-  const validateField = (name:string, value:string) => {
+  const validateField = (name:string, value:string): string | null => {
     switch (name) {
       case "cardNumber":
         { const cleanCardNumber = value.replace(/\s/g, "");
@@ -69,7 +69,7 @@ export const usePaymentForm = () => {
     return null;
   };
 
-  const validateForm = () => {
+  const validateForm = (): boolean => {
     const newErrors: PaymentErrors = {};
     let isValid = true;
 
@@ -86,7 +86,7 @@ export const usePaymentForm = () => {
     return isValid;
   };
 
-  const formatCardNumber = (value:string) => {
+  const formatCardNumber = (value:string): string => {
     const v = value.replace(/\s+/g, "").replace(/[^0-9]/gi, "");
     const matches = v.match(/\d{4,16}/g);
     const match = (matches && matches[0]) || "";
@@ -101,7 +101,7 @@ export const usePaymentForm = () => {
     }
   };
 
-  const formatExpiryDate = (value:string) => {
+  const formatExpiryDate = (value:string): string => {
     const v = value.replace(/\s+/g, "").replace(/[^0-9]/gi, "");
     if (v.length >= 2) {
       return v.substring(0, 2) + "/" + v.substring(2, 4);
