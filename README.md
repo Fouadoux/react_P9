@@ -152,4 +152,3 @@ Seuls `name`, `price` et `amount` sont lus ensuite par le panier (`CartPage`, `B
 **Conséquence :** les articles du panier (et ceux enregistrés dans le `localStorage`) peuvent contenir des champs supplémentaires selon leur provenance. Le typage ne les expose pas, et le code actuel n'en dépend pas.
 
 **Piste d'amélioration (hors périmètre de la migration) :** faire envoyer le même objet depuis les deux pages (par exemple uniquement `{ name, price }`), ce qui nécessiterait de modifier le code existant. À planifier avant d'ajouter de nouvelles fonctionnalités liées au panier.
-# reac
